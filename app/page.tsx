@@ -4,7 +4,7 @@ import {
   ShoppingCart, Sparkles, Home as HomeIcon, Package, Send, 
   MoreHorizontal, TrendingDown, TrendingUp, PlusCircle, History, 
   AlignLeft, Calendar, Clock, Truck, Receipt, Users, Download, Wallet, ArrowDownCircle, ArrowUpCircle,
-  Trash2, Loader2 // <--- Añadido Loader2 para el botón de carga
+  Trash2, Loader2 
 } from 'lucide-react'
 
 interface Registro {
@@ -20,8 +20,8 @@ interface Registro {
   timestamp: number;
 }
 
-// 🚀 TU URL DE GOOGLE APPS SCRIPT
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyW5O4tVHE7Ols9jkRn0W1IbWBEE6HXGgUww2oXNN7zrK8RWFvhkNxwbmzTRoyMqjvl/exec";
+// 🚀 NUEVA URL OFICIAL DE BROSTYPANN
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzDptzIrjaLlNojJW10ja81ywTYqkjuDp7O5fOdnxkyGTgYouqkaoKE0MZr3BY_m3SA/exec";
 
 export default function Home() {
   const [tipoRegistro, setTipoRegistro] = useState<'ingreso' | 'gasto'>('gasto')
@@ -77,14 +77,13 @@ export default function Home() {
     e.preventDefault()
     if (Number(monto) <= 0 || !cajero) return alert("Ingrese un monto válido y el nombre del cajero.")
 
-    setIsSubmitting(true) // Bloqueamos el botón
+    setIsSubmitting(true) 
 
     const fechaObjeto = new Date(fechaManual)
     const fechaFormateada = fechaObjeto.toLocaleString([], { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
     const soloFecha = fechaObjeto.toLocaleDateString()
     const soloHora = fechaObjeto.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 
-    // 1. Armamos el paquete de datos para Google Sheets
     const payload = {
       fecha: soloFecha,
       hora: soloHora,
@@ -98,15 +97,13 @@ export default function Home() {
     }
 
     try {
-      // 2. Disparamos el misil hacia Google Sheets
       await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
-        mode: 'no-cors', // Fundamental para que Google no bloquee la petición por seguridad
+        mode: 'no-cors', 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       })
 
-      // 3. Si todo sale bien, lo mostramos en pantalla (Dashboard local)
       const nuevoRegistro: Registro = {
         id: Date.now(),
         tipo: tipoRegistro,
@@ -122,7 +119,6 @@ export default function Home() {
 
       setHistorial([nuevoRegistro, ...historial])
       
-      // 4. Limpiamos el formulario
       setMonto('')
       if (tipoRegistro === 'gasto') {
         setConcepto('')
@@ -132,11 +128,10 @@ export default function Home() {
     } catch (error) {
       alert("Error de conexión. Revisa tu internet y vuelve a intentar.")
     } finally {
-      setIsSubmitting(false) // Desbloqueamos el botón
+      setIsSubmitting(false) 
     }
   }
 
-  // Matemática del negocio
   const totalIngresos = historial.filter(r => r.tipo === 'ingreso').reduce((acc, item) => acc + item.monto, 0)
   const totalGastos = historial.filter(r => r.tipo === 'gasto').reduce((acc, item) => acc + item.monto, 0)
   const efectivoCaja = totalIngresos - totalGastos
@@ -157,7 +152,6 @@ export default function Home() {
           <p className="text-slate-500 text-[10px] uppercase font-bold tracking-[0.3em]">Cierre Diario Inteligente</p>
         </header>
 
-        {/* DASHBOARD */}
         <div className="w-full bg-slate-900 rounded-[2.5rem] p-6 mb-6 shadow-2xl border border-slate-800 flex flex-col gap-4">
           <div className="flex gap-4 w-full">
             <div className="flex-1 bg-slate-950/50 rounded-3xl p-4 border border-green-500/20">
@@ -180,7 +174,6 @@ export default function Home() {
           </div>
         </div>
         
-        {/* FORMULARIO */}
         <div className="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl border border-slate-800/50 mb-8 transition-all">
           <div className="flex bg-slate-950 p-1.5 rounded-2xl mb-6 border border-slate-800">
             <button type="button" onClick={() => setTipoRegistro('gasto')} className={`flex-1 flex justify-center items-center gap-2 py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-all ${tipoRegistro === 'gasto' ? 'bg-red-600 text-white shadow-lg' : 'text-slate-500 hover:text-slate-300'}`}>
@@ -268,7 +261,6 @@ export default function Home() {
           </form>
         </div>
 
-        {/* HISTORIAL */}
         {historial.length > 0 && (
           <div className="w-full space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
             <div className="flex justify-between items-center px-2 border-b border-slate-800 pb-2">
