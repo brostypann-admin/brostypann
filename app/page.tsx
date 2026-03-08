@@ -149,7 +149,7 @@ export default function Home() {
           <h1 className="text-4xl font-black tracking-tighter italic text-red-600">
             BROSTY<span className="text-white not-italic">PANN</span>
           </h1>
-          <p className="text-slate-500 text-[10px] uppercase font-bold tracking-[0.3em]">Cierre Diario Inteligente</p>
+          <p className="text-slate-500 text-[10px] uppercase font-bold tracking-[0.3em]">Cierre Diario Oficial</p>
         </header>
 
         <div className="w-full bg-slate-900 rounded-[2.5rem] p-6 mb-6 shadow-2xl border border-slate-800 flex flex-col gap-4">
