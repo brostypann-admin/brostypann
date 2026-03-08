@@ -20,7 +20,7 @@ interface Registro {
   timestamp: number;
 }
 
-// 🚀 NUEVA URL OFICIAL DE BROSTYPANN
+// 🚀 ¡AQUÍ ESTÁ EL CAMBIO! Pega el enlace que termina en /exec
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzDptzIrjaLlNojJW10ja81ywTYqkjuDp7O5fOdnxkyGTgYouqkaoKE0MZr3BY_m3SA/exec";
 
 export default function Home() {
